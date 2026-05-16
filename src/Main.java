@@ -55,6 +55,28 @@ public class Main {
         int result = lengthOfLongestSubstring.lengthofLongestString("abcabcbb");
         System.out.println(result);*/
 
+        /*System.out.println("ReverseWords");
+        ReverseWords reverseWords = new ReverseWords();
+        String result = reverseWords.reverseWords("Hello World");
+        System.out.println(result);*/
+
+        /*System.out.println("Unique Character in a String");
+        FirstUniqChar firstUniqChar = new FirstUniqChar();
+
+        int result = firstUniqChar.firsstUnifqChar("leetcode");
+        System.out.println(result);*/
+
+
+
+
+
+
+
+
+
+
+
+
        /* for (int i = 1; i <= 5; i++) {
             //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
