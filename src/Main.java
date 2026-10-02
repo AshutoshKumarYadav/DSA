@@ -66,6 +66,16 @@ public class Main {
         int result = firstUniqChar.firsstUnifqChar("leetcode");
         System.out.println(result);*/
 
+       /* System.out.println("MergeTwoLists");
+        MergeTwoLists mergeTwoLists = new MergeTwoLists();
+        ListNode result = mergeTwoLists.mergeTwoList(new ListNode(1,new ListNode(2,new ListNode(4))),new ListNode(1,new ListNode(3,new ListNode(4))));
+        System.out.println(result.val);
+
+        while(result.next!=null){
+            System.out.println(result.val+" ");
+            result=result.next;
+        }*/
+
 
 
 
