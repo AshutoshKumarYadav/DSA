@@ -1,4 +1,4 @@
-package JPMorgan;
+package JPMorgan.TwoPointer;
 
 public class MaximumElement {
 

@@ -1,0 +1,257 @@
+Java 21 Features — Interview Focus ⭐⭐⭐
+
+Java 21 is an LTS release and is especially important for modern Spring Boot + MicroservicesDesignPattern interviews.
+
+The biggest Java 21 feature is Virtual Threads.
+
+1. Virtual Threads ⭐⭐⭐⭐⭐
+
+Virtual threads are lightweight threads designed for high-throughput concurrent applications.
+
+Traditional Platform Thread
+Thread thread = new Thread(() -> {
+    System.out.println("Hello");
+});
+
+thread.start();
+
+Platform threads are relatively expensive because they are backed by OS threads.
+
+Java 21 Virtual Thread
+Thread.startVirtualThread(() -> {
+    System.out.println("Hello from virtual thread");
+});
+
+Or:
+
+Thread thread = Thread.ofVirtual()
+        .start(() -> {
+            System.out.println("Hello");
+        });
+ExecutorService
+try (ExecutorService executor =
+         Executors.newVirtualThreadPerTaskExecutor()) {
+
+    executor.submit(() -> {
+        System.out.println("Task running");
+    });
+}
+Why Virtual Threads?
+
+Suppose your application receives:
+
+10,000 requests
+
+and many requests spend time waiting for:
+
+Database
+REST API
+Kafka
+File I/O
+Network
+
+Virtual threads allow you to handle many concurrent tasks without needing one expensive OS thread per task.
+
+Interview answer
+
+Virtual threads are lightweight threads managed by the JVM rather than directly mapping one-to-one with OS threads. They are particularly useful for high-concurrency, I/O-bound workloads.
+
+⚠️ Important
+
+Virtual threads are not automatically faster for CPU-intensive work.
+
+Good:
+
+REST call
+    ↓
+Database call
+    ↓
+Wait
+    ↓
+Response
+
+Less useful:
+
+Heavy CPU calculation
+    ↓
+Heavy CPU calculation
+2. Record Patterns ⭐⭐⭐
+
+Java 21 allows you to destructure records directly.
+
+Suppose:
+
+record Employee(String name, int age) {}
+
+Instead of:
+
+Employee e = new Employee("Ashutosh", 36);
+
+System.out.println(e.name());
+System.out.println(e.age());
+
+You can use a record pattern:
+
+if (obj instanceof Employee(String name, int age)) {
+    System.out.println(name);
+    System.out.println(age);
+}
+Easy trick
+
+Record Pattern = extract record values directly
+
+3. Pattern Matching for switch ⭐⭐⭐
+
+Java 21 made pattern matching for switch a standard feature.
+
+static String test(Object obj) {
+
+    return switch (obj) {
+
+        case Integer i -> "Integer: " + i;
+
+        case String s -> "String: " + s;
+
+        case Double d -> "Double: " + d;
+
+        default -> "Unknown";
+    };
+}
+
+Now switch can work with types, not just constants.
+
+Before
+if (obj instanceof String) {
+    ...
+} else if (obj instanceof Integer) {
+    ...
+}
+Java 21
+switch (obj) {
+    case String s -> ...
+    case Integer i -> ...
+    default -> ...
+}
+4. Sequenced Collections ⭐⭐
+
+Java 21 introduced interfaces for collections where encounter order matters.
+
+Important interfaces:
+
+SequencedCollection
+SequencedSet
+SequencedMap
+
+For example:
+
+SequencedCollection<String> list =
+        new ArrayList<>();
+
+list.add("A");
+list.add("B");
+list.add("C");
+
+System.out.println(list.getFirst());
+System.out.println(list.getLast());
+
+Output:
+
+A
+C
+
+You can also reverse the view:
+
+list.reversed();
+5. String Templates ⚠️
+
+Java 21 introduced String Templates as a preview feature, not a permanent standard feature.
+
+Example from the preview:
+
+String name = "Ashutosh";
+String result = STR."Hello \{name}";
+
+However, String Templates were later withdrawn, so don't describe them as a normal Java 21 production feature in an interview.
+
+6. Unnamed Patterns and Variables
+
+Java 21 introduced _ for certain unused variables/patterns as a preview feature.
+
+Example:
+
+if (obj instanceof String _) {
+    System.out.println("It is a String");
+}
+
+The idea is:
+
+I know the type, but I don't need the variable.
+
+7. Unnamed Classes and Instance Main Methods ⚠️
+
+Java 21 introduced this as a preview feature to make simple Java programs easier to write.
+
+Traditional:
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
+}
+
+The preview feature allows simpler beginner-friendly forms.
+
+Don't prioritize this for normal enterprise interviews.
+
+🔥 Java 21 vs Java 17
+Java 17	Java 21
+Records	Record Patterns
+Sealed Classes	Pattern Matching for switch
+Pattern Matching instanceof	Virtual Threads ⭐
+Text Blocks	Sequenced Collections
+Switch Expressions	Unnamed patterns/variables
+	Unnamed classes/main methods
+⭐ Most Important for Your Interviews
+
+For Java + Spring Boot + MicroservicesDesignPattern, learn Java 21 in this order:
+
+1️⃣ Virtual Threads ⭐⭐⭐⭐⭐
+Executors.newVirtualThreadPerTaskExecutor()
+2️⃣ Pattern Matching for switch ⭐⭐⭐⭐
+case String s -> ...
+case Integer i -> ...
+3️⃣ Record Patterns ⭐⭐⭐⭐
+if (obj instanceof Employee(String name, int age))
+4️⃣ Sequenced Collections ⭐⭐⭐
+getFirst()
+getLast()
+reversed()
+🧠 Easy Java Version Trick
+
+Remember the major versions like this:
+
+Java 8
+ ↓
+Lambda + Stream + Optional
+
+Java 11
+ ↓
+String + HttpClient + Files
+
+Java 17
+ ↓
+Record + Sealed + Pattern Matching
+
+Java 21
+ ↓
+Virtual Threads + Pattern Switch + Record Pattern
+🎯 Interview one-liner
+
+If interviewer asks:
+
+"What are the major features introduced in Java 21?"
+
+Say:
+
+"Java 21 is an LTS release. Its major features include Virtual Threads, Pattern Matching for switch, Record Patterns, and Sequenced Collections. Among these, Virtual Threads are particularly important for high-concurrency I/O-bound applications such as REST APIs and microservices."

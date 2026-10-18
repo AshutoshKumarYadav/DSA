@@ -1,0 +1,316 @@
+                DESIGN PATTERNS
+                      |
+        +-------------+-------------+
+        |             |             |
+   Creational     Structural    Behavioral
+       5               7             11
+
+       1. Creational Patterns — 5
+       Object कैसे create करना है, यह बताते हैं।
+       #
+       Pattern
+       आसान मतलब
+       1 Singleton
+       पूरी application में एक ही object
+
+       Already implemented:
+
+       Spring Beans — default scope Singleton and Runtime.getRuntime()
+       Example: Logger, Database Connection, Thread Pool, Cache
+
+       2 Factory Method
+       Object creation को अलग method/class में रखना
+
+       Already implemented:
+
+       Calendar.getInstance()
+       NumberFormat.getInstance()
+       Spring BeanFactory
+
+       Example: ShapeFactory, AnimalFactory, CarFactory
+
+       3 Abstract Factory
+       Related objects की family create करना
+       Already implemented:
+
+       Java DocumentBuilderFactory
+       TransformerFactory
+       JDBC-related factory APIs
+
+       Example: GUIFactory, WidgetFactory, VehicleFactory
+
+       4 Builder
+       Complex object को step-by-step बनाना
+       5 Prototype
+       Existing object को clone करके नया object बनाना
+
+       आपने अभी Singleton देखा है।
+
+        Already implemented:
+
+        Lombok @Builder
+        StringBuilder
+        HttpRequest.Builder
+        Spring ResponseEntity builder methods
+
+        Example: MealBuilder, HouseBuilder, CarBuilder
+        but in code, we can use Lombok @Builder annotation to implement Builder pattern.
+
+        5. Prototype
+        cloning the objects.
+        Already implemented:
+
+        Java Cloneable
+        Object.clone()
+        Example: ShapePrototype, AnimalPrototype, CarPrototype
+
+       2. Structural Patterns — 7
+
+       Classes/objects को एक-दूसरे के साथ कैसे जोड़ना है, यह बताते हैं।
+
+       #	Pattern	आसान मतलब
+       1	Adapter	Incompatible interfaces को compatible बनाना
+       Already implemented:
+
+       InputStreamReader
+       OutputStreamWriter
+       Spring integration adapters
+       Example: Java Collections Adapter classes, Spring MVC HandlerAdapter
+
+       2	Bridge	Abstraction और implementation को अलग करना
+
+       Example: JDBC API, Java AWT, Spring MVC
+       Java में GUI/AWT जैसी APIs में abstraction/implementation separation के concepts मिलते हैं।
+
+       3	Composite	Objects को tree structure में रखना
+       Example: Java AWT, File System, XML DOM
+
+       Already implemented:
+
+       Java Swing/AWT component hierarchy
+       File/directory tree concepts
+
+       4	Decorator	Existing object में dynamically functionality जोड़ना
+       Example: Java I/O Streams, Java Collections, Spring AOP
+       Already implemented:
+
+       Java I/O बहुत अच्छा example है:
+
+       5	Facade	Complex system के लिए simple interface देना
+         Example: Java JDBC, Java JNDI, Spring JdbcTemplate
+
+         Already implemented:
+
+         JdbcTemplate
+         Spring RestTemplate
+         Spring JdbcTemplate internally hides JDBC complexity
+
+       6	Flyweight	Objects को share करके memory बचाना
+       Example: Java String Pool, Java Integer Cache, Spring Bean Scopes
+       Already implemented:
+
+       Integer.valueOf()
+       String pool
+       Wrapper object caching
+
+       7	Proxy	Original object के सामने controlling object रखना
+       Example: Java RMI, Java Dynamic Proxy, Spring AOP
+        Spring अक्सर proxy के माध्यम से transaction behavior apply करता है।
+
+        Also:
+
+        Spring AOP
+        @Transactional
+        @Cacheable
+        @Async
+
+        Proxy pattern से heavily related हैं।
+
+       3. Behavioral Patterns — 11
+
+       Objects आपस में कैसे communicate/behave करेंगे, यह बताते हैं।
+
+       #	Pattern	आसान मतलब
+       1	Chain of Responsibility	Request को handlers की chain में भेजना
+       Example: Java Servlet Filter, Java Logging Framework, Spring Security Filter Chain
+        Already implemented:
+
+        Spring Security filter chain इसका excellent practical example है।
+
+        Security Filter
+              ↓
+        Authentication
+              ↓
+        Authorization
+              ↓
+        Controller
+
+       2	Command	Request को object के रूप में represent करना
+       Example: Java Runnable, Java ActionListener, Spring @EventListener
+       Already implemented:
+
+       Runnable
+       Swing Action
+       Undo/redo systems
+
+       3	Interpreter	Language/grammar को interpret करना
+       Example: Java Regex, SQL Parser, Spring Expression Language (SpEL)
+       Already implemented:
+
+       Regular Expression engines
+       Expression Language
+       Spring Expression Language — SpEL
+
+       4	Iterator	Collection को sequentially traverse करना
+       Example: Java Iterator, Java Enumeration, Spring Data JPA PagingAndSortingRepository
+       Already implemented:
+
+       Java Collections:
+
+       Iterator
+       ListIterator
+
+       5	Mediator	Objects के communication को centralize करना
+       Example: Java AWT Event Dispatch Thread, Spring ApplicationEventPublisher
+
+       Real-world example:
+
+       Chat room:
+
+       User → ChatRoom → Other Users
+
+       Already implemented:
+
+       GUI event systems में mediator-style communication मिलता है।
+
+       6   Memento	Object की previous state save करना
+       Example: Java Serializable, Java Cloneable, Spring Session
+       Already implemented:
+
+       Undo/Redo functionality
+       Editor history systems
+
+       7	Observer	एक object change हो तो dependents को notify करना
+         Example: Java Observable, Java PropertyChangeListener, Spring ApplicationEventPublisher
+         Example:
+
+         Order Service
+               |
+               +---- Email Service
+               |
+               +---- SMS Service
+               |
+               +---- Notification Service
+
+         Spring में:
+
+         ApplicationEventPublisher
+         @EventListener
+
+         यह observer-style event mechanism provide करता है।
+
+       8	State	Object का behavior state के अनुसार बदलना
+       Example: Java Thread State, Java Swing Button Model, Spring State Machine
+
+       Example:
+
+       Order
+
+       CREATED
+          ↓
+       PAID
+          ↓
+       SHIPPED
+          ↓
+       DELIVERED
+
+       हर state में behavior अलग हो सकता है।
+
+       Real-world:
+
+       Order/payment/workflow systems में बहुत common।
+
+       9	Strategy	Runtime पर algorithm/behavior बदलना
+         Example: Java Comparator, Java Collections.sort(), Spring Security PasswordEncoder
+         Already implemented:
+
+         Comparator
+         Spring's many pluggable implementations
+         AuthenticationProvider style designs
+
+       10	Template Method	Algorithm का skeleton define करना
+         Example: Java AbstractList, Java AbstractMap, Spring JdbcTemplate
+         Spring में बहुत important:
+
+         JdbcTemplate
+         RestTemplate
+
+         इनमें template-style design का उपयोग किया गया है।
+
+       11	Visitor	Existing classes बदले बिना operations add करना
+            Example: Java AWT Visitor, Java DOM Visitor, Spring BeanPostProcessor
+       याद रखने की Trick
+
+       Example:
+
+       Employee
+          |
+          +-- Developer
+          +-- Manager
+
+       Visitor:
+
+       TaxVisitor
+       SalaryVisitor
+       ReportVisitor
+
+       एक ही objects पर अलग-अलग operations perform कर सकते हैं।
+
+       Already implemented:
+
+       Java compiler/AST processing और कई tree-processing libraries में Visitor pattern मिलता है।
+                       DESIGN PATTERNS
+                             |
+               +-------------+-------------+
+               |             |             |
+          Creational     Structural    Behavioral
+              5               7             11
+        S F A B P       A B C D F F P   C C I I M M O S S T V
+       5 + 7 + 11 = 23
+
+| Pattern              | याद रखने का Keyword |
+| -------------------- | ------------------- |
+| **S**ingleton        | एक Object           |
+| **F**actory          | Object बनाना        |
+| **A**bstract Factory | Factory की Factory  |
+| **B**uilder          | Step-by-step बनाना  |
+| **P**rototype        | Copy/Clone          |
+
+
+
+| Letter | Pattern   | Keyword              |
+| ------ | --------- | -------------------- |
+| **A**  | Adapter   | Compatible बनाना     |
+| **B**  | Bridge    | अलग करना             |
+| **C**  | Composite | Tree/Group           |
+| **D**  | Decorator | Functionality जोड़ना |
+| **F**  | Facade    | Simple interface     |
+| **F**  | Flyweight | Share/Memory         |
+| **P**  | Proxy     | Control access       |
+
+
+
+       | Letter | Pattern                 | Keyword            |
+       | ------ | ----------------------- | ------------------ |
+       | **C**  | Chain of Responsibility | Chain              |
+       | **C**  | Command                 | Request/Object     |
+       | **I**  | Interpreter             | Language           |
+       | **I**  | Iterator                | Traverse           |
+       | **M**  | Mediator                | Communication      |
+       | **M**  | Memento                 | Previous State     |
+       | **O**  | Observer                | Notification       |
+       | **S**  | State                   | State बदलना        |
+       | **S**  | Strategy                | Algorithm बदलना    |
+       | **T**  | Template Method         | Algorithm skeleton |
+       | **V**  | Visitor                 | New operation      |
+

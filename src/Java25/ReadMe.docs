@@ -1,0 +1,260 @@
+Java 25 Features — Interview Focus ⭐⭐⭐
+
+Java 25 is an LTS release, released on September 16, 2025.
+
+For your Java + Spring Boot interviews, don't try to memorize all JEPs. Focus on the features below.
+
+1. Module Import Declarations ⭐⭐⭐
+
+Java 25 makes it possible to import all packages exported by a module.
+
+Instead of many individual imports, you can use:
+
+import module java.sql;
+
+This is a permanent Java 25 feature (JEP 511).
+
+Interview trick:
+
+Module import = import all packages exported by a module.
+
+2. Compact Source Files + Instance main() ⭐⭐⭐
+
+This feature became permanent in Java 25.
+
+Traditional Java:
+
+public class Main {
+
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
+}
+
+Java 25 allows a much simpler style for small programs:
+
+void main() {
+    System.out.println("Hello");
+}
+
+This is mainly intended to make Java easier for beginners and small programs.
+
+Important: Don't confuse this with Java 21. It was first previewed in Java 21 and became permanent in Java 25.
+
+3. Flexible Constructor Bodies ⭐⭐⭐
+
+Java 25 makes Flexible Constructor Bodies permanent.
+
+It allows statements to execute before the explicit constructor invocation in certain situations.
+
+Conceptually:
+
+class Employee extends Person {
+
+    Employee(String name) {
+
+        // validation / preparation
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
+
+        super(name);
+    }
+}
+
+This gives more flexibility around constructor initialization. It is a permanent Java 25 feature (JEP 513).
+
+4. Primitive Types in Pattern Matching ⭐⭐⭐
+
+This is an important language enhancement, but it is still a preview feature in Java 25.
+
+Java 25 extends pattern matching so primitive types can participate in instanceof, switch, and pattern contexts.
+
+For example, the direction is toward code such as:
+
+switch (value) {
+    case int i -> System.out.println("Integer: " + i);
+    case long l -> System.out.println("Long: " + l);
+    default -> System.out.println("Other");
+}
+
+Interview note: Say "preview feature in Java 25", not a fully finalized feature.
+
+5. Scoped Values ⭐⭐⭐⭐
+
+This is particularly relevant when discussing Virtual Threads and modern concurrency.
+
+Scoped Values provide a way to share immutable data with a method and its callees, including child threads. They are designed as a more efficient and easier-to-reason-about alternative to many ThreadLocal use cases, especially with virtual threads.
+
+Conceptually:
+
+Request
+   ↓
+Scoped Value
+   ↓
+Service
+   ↓
+Repository
+
+All can access the scoped context without passing the value through every method.
+
+Interview trick:
+
+ThreadLocal → mutable thread-local context
+ScopedValue → immutable scoped context
+
+6. Structured Concurrency ⭐⭐⭐⭐
+
+Structured Concurrency treats multiple related concurrent tasks as one unit of work.
+
+For example:
+
+Request
+ ├── Call Customer Service
+ ├── Call Account Service
+ └── Call Transaction Service
+
+Instead of managing these independently, structured concurrency allows them to be treated as one logical operation, simplifying cancellation, error handling, and observability.
+
+Important: In Java 25, Structured Concurrency is still a preview feature.
+
+This is very useful for your microservices/system-design interviews.
+
+7. Stable Values ⭐⭐
+
+Java 25 introduces Stable Values as a preview API.
+
+The idea is to hold immutable data while allowing its initialization to happen later than a normal final field.
+
+Conceptually:
+
+final field
+    ↓
+value fixed during construction
+
+Stable Value
+    ↓
+value can be initialized later
+    ↓
+then remains immutable
+
+The JVM can treat stable values similarly to constants for optimization.
+
+8. Compact Object Headers ⭐⭐⭐
+
+This is a JVM performance improvement.
+
+On 64-bit architectures, Java 25 reduces object headers to 64 bits in the relevant HotSpot implementation, helping reduce heap usage and improve data locality.
+
+This is more relevant for:
+
+JVM performance
+memory optimization
+high-scale applications
+9. Ahead-of-Time Improvements ⭐⭐⭐
+
+Java 25 improves AOT (Ahead-of-Time) behavior.
+
+Two important enhancements are:
+
+AOT Command-Line Ergonomics
+
+Makes creating AOT caches simpler.
+
+AOT Method Profiling
+
+Previous method-execution profiles can be available when the JVM starts, helping the JIT compiler generate optimized code sooner.
+
+Think:
+
+Normal startup
+    ↓
+Application starts
+    ↓
+Collect profile
+    ↓
+JIT optimizes
+
+Java 25 AOT improvements
+    ↓
+Previous profile available
+    ↓
+Optimization can happen earlier
+    ↓
+Faster startup
+10. Key Derivation Function API ⭐⭐⭐
+
+Java 25 adds a standard KDF API for cryptographic key derivation.
+
+KDF means:
+
+Key Derivation Function
+
+It derives cryptographic keys from existing secret material and other inputs.
+
+This is particularly relevant to modern cryptography and security.
+
+11. PEM Encodings ⭐⭐
+
+Java 25 adds a preview API for encoding and decoding cryptographic objects in PEM format.
+
+PEM is commonly seen with:
+
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+
+and cryptographic keys/certificates.
+
+12. JFR Improvements ⭐⭐
+
+Java Flight Recorder gets several improvements, including:
+
+CPU-time profiling
+Cooperative sampling
+Method timing and tracing
+
+These help with JVM performance analysis and troubleshooting.
+
+🔥 Java 17 → 21 → 25
+
+This is the easiest way to remember the progression:
+
+Version	Major things to remember
+Java 17	Records, Sealed Classes, Pattern Matching instanceof
+Java 21	Virtual Threads, Record Patterns, Pattern Matching switch, Sequenced Collections
+Java 25	Module Imports, Compact Source/Instance main, Flexible Constructor Bodies, Scoped Values, Structured Concurrency, AOT improvements
+
+Java's language-change summary confirms the permanent Java 25 language additions are Module Import Declarations, Compact Source Files/Instance main, and Flexible Constructor Bodies.
+
+🧠 Best interview memory trick
+Java 8
+→ Lambda + Stream + Optional
+
+Java 11
+→ String + HttpClient + Files
+
+Java 17
+→ Record + Sealed + instanceof Pattern
+
+Java 21
+→ Virtual Threads + Record Pattern + Switch Pattern
+
+Java 25
+→ Module Import + Simple Main + Flexible Constructor
+→ Scoped Values + Structured Concurrency
+→ AOT + Compact Object Headers
+⭐ For your interviews, prioritize
+
+Java 21:
+Virtual Threads ⭐⭐⭐⭐⭐
+
+Java 25:
+Scoped Values ⭐⭐⭐⭐
+Structured Concurrency ⭐⭐⭐⭐
+Flexible Constructor Bodies ⭐⭐⭐
+Module Import ⭐⭐⭐
+Compact Source Files / Instance main ⭐⭐⭐
+AOT improvements ⭐⭐
+
+One important distinction: Scoped Values and Structured Concurrency are not both final Java 25 features—Structured Concurrency remains preview, while Scoped Values is listed as a Java 25 API feature; so mention their status accurately if asked.

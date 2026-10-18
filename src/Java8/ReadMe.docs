@@ -1,0 +1,223 @@
+Java 8 is one of the most important versions for interviews. The easiest way to remember its features is:
+
+🚀 Major Java 8 Features
+1. Lambda Expression ⭐⭐⭐
+
+Allows you to write functions in a shorter way.
+
+Before Java 8:
+
+List<String> names = Arrays.asList("A", "B", "C");
+
+for (String name : names) {
+    System.out.println(name);
+}
+
+Java 8:
+
+names.forEach(name -> System.out.println(name));
+
+Trick: Lambda = ->
+
+2. Functional Interface ⭐⭐⭐
+
+An interface having exactly one abstract method.
+
+@FunctionalInterface
+interface Calculator {
+    int add(int a, int b);
+}
+
+Using lambda:
+
+Calculator c = (a, b) -> a + b;
+
+System.out.println(c.add(10, 20));
+
+Common built-in functional interfaces:
+
+Predicate<T>  → boolean
+Function<T,R> → R
+Consumer<T>   → void
+Supplier<T>   → T
+
+Easy trick:
+
+Predicate = test
+Function = convert
+Consumer = consume
+Supplier = supply
+
+3. Stream API ⭐⭐⭐
+
+Used for processing collections.
+
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+list.stream()
+    .filter(x -> x % 2 == 0)
+    .forEach(System.out::println);
+
+Output:
+
+2
+4
+
+Important Stream methods:
+
+filter()
+map()
+flatMap()
+sorted()
+distinct()
+limit()
+skip()
+reduce()
+collect()
+forEach()
+count()
+4. Method Reference ⭐⭐
+
+Shorter form of lambda.
+
+Instead of:
+
+names.forEach(x -> System.out.println(x));
+
+Use:
+
+names.forEach(System.out::println);
+
+Syntax:
+
+ClassName::methodName
+5. Optional ⭐⭐⭐
+
+Helps reduce NullPointerException.
+
+Optional<String> name = Optional.ofNullable(null);
+
+name.ifPresent(System.out::println);
+
+Other methods:
+
+isPresent()
+orElse()
+orElseGet()
+orElseThrow()
+ifPresent()
+map()
+filter()
+6. Default Methods in Interface ⭐⭐⭐
+
+Before Java 8, interfaces couldn't have method implementations.
+
+Java 8:
+
+interface Vehicle {
+
+    default void start() {
+        System.out.println("Vehicle started");
+    }
+}
+
+A class can use it without implementing the method.
+
+7. Static Methods in Interface
+
+Java 8 allows static methods inside interfaces.
+
+interface Test {
+
+    static void display() {
+        System.out.println("Hello");
+    }
+}
+
+Call:
+
+Test.display();
+8. Date and Time API ⭐⭐⭐
+
+Java 8 introduced the modern java.time API.
+
+Instead of older:
+
+Date
+Calendar
+
+Use:
+
+LocalDate
+LocalTime
+LocalDateTime
+ZonedDateTime
+Instant
+Period
+Duration
+
+Example:
+
+LocalDate date = LocalDate.now();
+
+System.out.println(date);
+9. CompletableFuture ⭐⭐⭐
+
+Used for asynchronous programming.
+
+CompletableFuture.supplyAsync(() -> {
+    return "Hello";
+});
+
+Useful for:
+
+Async operations
+Parallel tasks
+Non-blocking workflows
+Combining async operations
+10. Nashorn JavaScript Engine
+
+Java 8 introduced the Nashorn JavaScript engine for executing JavaScript inside the JVM.
+
+Note: Nashorn was later deprecated and removed from the JDK.
+
+🔥 Java 8 Interview Cheat Sheet
+
+Remember:
+
+Java 8
+  ↓
+Lambda
+  ↓
+Functional Interface
+  ↓
+Stream API
+  ↓
+Method Reference
+  ↓
+Optional
+  ↓
+Default + Static Interface Methods
+  ↓
+New Date/Time API
+  ↓
+CompletableFuture
+Most important for your Java interviews
+
+Given your Java + Spring Boot interview preparation, prioritize these:
+
+1. Lambda → 2. Functional Interface → 3. Stream → 4. Optional → 5. Method Reference → 6. Default Methods → 7. CompletableFuture
+
+And for Streams, make sure you can explain:
+
+filter()
+map()
+flatMap()
+sorted()
+distinct()
+limit()
+skip()
+reduce()
+collect()
+
+especially intermediate vs terminal operations.

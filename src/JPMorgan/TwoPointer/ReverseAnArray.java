@@ -1,4 +1,4 @@
-package JPMorgan;
+package JPMorgan.TwoPointer;
 
 import java.util.Arrays;
 
@@ -21,4 +21,18 @@ public class ReverseAnArray {
         }
         return arr;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

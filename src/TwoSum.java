@@ -14,6 +14,7 @@ Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].*/
 
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class TwoSum {
     public int[] twoosum(int[] nums,int target){
@@ -27,4 +28,18 @@ public class TwoSum {
         }
         return new int[]{};
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

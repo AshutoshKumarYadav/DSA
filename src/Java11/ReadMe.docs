@@ -1,0 +1,189 @@
+Java 11 Features — Interview Focus ⭐
+
+Java 11 is an LTS (Long-Term Support) version and came after Java 8. For interviews, remember these major features:
+
+1. var in Lambda Parameters ⭐⭐⭐
+
+Java 10 introduced var for local variables. Java 11 extended it to lambda parameters.
+
+(var a, var b) -> a + b
+
+You can also use annotations:
+
+(var a, @NotNull var b) -> a + b
+
+Important: You cannot mix var and normal types:
+
+(var a, b) -> a + b;       // ❌
+(var a, int b) -> a + b;   // ❌
+2. New String Methods ⭐⭐⭐
+
+Java 11 added several useful methods.
+
+isBlank()
+String s = "   ";
+
+System.out.println(s.isBlank());  // true
+
+Difference:
+
+"".isEmpty();      // true
+"   ".isEmpty();   // false
+
+"".isBlank();      // true
+"   ".isBlank();   // true
+lines()
+String str = "Java\nSpring\nReact";
+
+str.lines()
+   .forEach(System.out::println);
+
+Output:
+
+Java
+Spring
+React
+strip()
+String str = "  Java  ";
+
+System.out.println(str.strip());
+
+strip() is Unicode-aware, unlike the older trim().
+
+stripLeading()
+"  Java".stripLeading();
+
+Result:
+
+Java
+stripTrailing()
+"Java  ".stripTrailing();
+
+Result:
+
+Java
+repeat()
+System.out.println("Java ".repeat(3));
+
+Output:
+
+Java Java Java
+3. HttpClient API ⭐⭐⭐
+
+Java 11 introduced a new HTTP Client API.
+
+Before:
+
+HttpURLConnection
+
+Java 11:
+
+HttpClient
+HttpRequest
+HttpResponse
+
+Example:
+
+HttpClient client = HttpClient.newHttpClient();
+
+HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create("https://example.com"))
+        .GET()
+        .build();
+
+HttpResponse<String> response =
+        client.send(request, HttpResponse.BodyHandlers.ofString());
+
+System.out.println(response.body());
+
+It supports:
+
+HTTP/1.1
+HTTP/2
+synchronous requests
+asynchronous requests
+4. Files.readString() and Files.writeString() ⭐⭐
+
+Java 11 made reading/writing text files easier.
+
+String data = Files.readString(Path.of("test.txt"));
+
+Writing:
+
+Files.writeString(
+    Path.of("test.txt"),
+    "Hello Java 11"
+);
+5. Single-File Source-Code Execution ⭐⭐
+
+You can run a Java source file directly:
+
+java HelloWorld.java
+
+Instead of manually doing:
+
+javac HelloWorld.java
+java HelloWorld
+
+Useful for small programs/scripts.
+
+6. Epsilon Garbage Collector
+
+Java 11 introduced the Epsilon GC, a garbage collector that performs no garbage collection.
+
+It is mainly useful for:
+
+performance testing
+memory allocation testing
+short-lived applications
+
+It's not normally used for production applications.
+
+7. ZGC — Experimental
+
+Java 11 introduced Z Garbage Collector (ZGC) as an experimental low-latency garbage collector.
+
+The goal was to handle very large heaps while keeping GC pause times extremely low.
+
+8. Flight Recorder
+
+Java Flight Recorder (JFR) became available in OpenJDK 11.
+
+It is used for:
+
+JVM monitoring
+performance analysis
+troubleshooting
+identifying CPU/memory problems
+🔥 Java 8 vs Java 11 — Interview Question
+Java 8	Java 11
+Lambda	var in lambda parameters
+Stream API	New String methods
+Optional	HttpClient
+Method Reference	Files.readString()
+Default methods	Files.writeString()
+java.time	Single-file execution
+CompletableFuture	ZGC
+Functional interfaces	Epsilon GC
+	Flight Recorder
+🧠 Easy trick
+
+Remember Java 11 as:
+
+String + HTTP + Files + var + GC
+
+Java 11
+   ↓
+String methods
+   ↓
+HttpClient
+   ↓
+Files read/write String
+   ↓
+var in Lambda
+   ↓
+ZGC / Epsilon
+   ↓
+Flight Recorder
+
+Most important for your interviews: String.isBlank(), strip(), lines(), repeat(), var in lambda, HttpClient, and single-file execution.

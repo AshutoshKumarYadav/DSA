@@ -1,0 +1,198 @@
+As of October 2026, the latest Java version is Java 27 (JDK 27). It was released on September 15, 2026.
+
+Current Java releases
+Version	Released	LTS?	Importance
+Java 8	2014	✅	Legacy/very common
+Java 11	2018	✅	Enterprise
+Java 17	2021	✅	Very common
+Java 21	2023	✅	⭐ Modern enterprise
+Java 25	2025	✅	⭐ Latest LTS
+Java 26	Mar 2026	❌	Feature release
+Java 27	Sep 2026	❌	Latest
+
+Oracle currently identifies JDK 27 as the latest Java SE release, while JDK 25 is the latest LTS release.
+
+For your interviews
+
+I would focus in this order:
+
+Java 8 → 11 → 17 → 21 → 25
+
+You should know Java 27 exists, but for a Java/Spring Boot interview, Java 17, 21 and 25 are much more important than memorizing every Java 27 feature.
+
+Oracle Java Downloads
+
+java 27 feature
+
+Yes. Java 27 / JDK 27 was released on September 15, 2026. It is a feature release, not LTS; Java 25 remains the latest LTS.
+
+For your Java/Spring Boot interview preparation, these are the important Java 27 features:
+
+1. Primitive Types in Patterns — Preview ⭐⭐⭐⭐
+
+Java 27 continues the evolution of pattern matching to allow primitive types in instanceof, switch, and other pattern contexts.
+
+For example, the direction is toward:
+
+switch (value) {
+    case int i -> System.out.println("int: " + i);
+    case long l -> System.out.println("long: " + l);
+    default -> System.out.println("other");
+}
+
+This is the 5th preview in Java 27, so don't call it a finalized Java 27 feature in an interview.
+
+2. Lazy Constants — Preview ⭐⭐⭐
+
+Lazy constants provide immutable values whose initialization can happen later.
+
+Conceptually:
+
+final field
+   ↓
+initialized during construction
+
+Lazy Constant
+   ↓
+initialized when needed
+   ↓
+remains immutable
+
+The JVM can treat them as true constants for optimization. Java 27 has the third preview of this API.
+
+3. Structured Concurrency — Preview ⭐⭐⭐⭐
+
+This is particularly interesting for your microservices interviews.
+
+Suppose one request calls three services:
+
+Order Request
+    |
+    +-- Customer Service
+    |
+    +-- Payment Service
+    |
+    +-- Inventory Service
+
+Structured concurrency allows these related tasks to be treated as one unit of work, making cancellation, error handling and observability easier.
+
+Java 27 has the 7th preview of Structured Concurrency.
+
+4. Vector API — Incubator ⭐⭐
+
+The Vector API allows Java applications to express vector computations that can compile to optimized CPU vector instructions.
+
+Useful for:
+
+High-performance computing
+Machine learning
+Scientific calculations
+Image/data processing
+
+Java 27 has the 12th incubator of this API.
+
+5. Post-Quantum Hybrid Key Exchange ⭐⭐⭐
+
+Java 27 improves TLS 1.3 security with hybrid key exchange algorithms combining traditional cryptography with quantum-resistant algorithms.
+
+The important point for an interview:
+
+Java 27 adds post-quantum protection to TLS 1.3 communication.
+
+Applications using the standard javax.net.ssl APIs can benefit without changing existing application code.
+
+6. Compact Object Headers — Default ⭐⭐⭐
+
+This is a JVM performance improvement.
+
+Java 27 makes Compact Object Headers enabled by default.
+
+Object headers on supported 64-bit architectures are reduced from 96 bits to 64 bits, which can reduce heap usage and improve data locality.
+
+Think:
+
+Before:
+Object Header → 96 bits
+
+Java 27:
+Object Header → 64 bits
+7. G1 is Default Garbage Collector in All Environments ⭐⭐⭐
+
+Java 27 makes G1 (Garbage-First) GC the default collector in all environments, rather than only server environments.
+
+For an interview:
+
+G1 is the default garbage collector across environments in JDK 27.
+
+8. JFR In-Process Data Redaction ⭐⭐
+
+Java Flight Recorder gets improved security.
+
+It can redact sensitive information such as:
+
+command-line arguments
+initial environment variables
+initial system properties
+
+before that data leaves the process.
+
+9. PEM Encodings — Preview ⭐⭐
+
+Java 27 continues the PEM API as a third preview.
+
+It supports encoding/decoding cryptographic objects such as:
+
+Private keys
+Public keys
+Certificates
+Certificate Revocation Lists
+
+into/from PEM format.
+
+🔥 Java 21 → 25 → 27
+
+For your interview preparation, remember it like this:
+
+Java 21
+   ↓
+Virtual Threads
+Record Patterns
+Pattern Matching switch
+Sequenced Collections
+
+Java 25 LTS
+   ↓
+Module Import
+Compact Source Files
+Flexible Constructor Bodies
+Scoped Values
+Structured Concurrency
+
+Java 27
+   ↓
+Primitive Patterns
+Lazy Constants
+Structured Concurrency improvements
+Vector API
+Post-Quantum TLS
+Compact Object Headers
+G1 default everywhere
+JFR security improvements
+⭐ What you should actually prepare
+
+For a Java + Spring Boot + MicroservicesDesignPattern Lead/Senior interview, I'd prioritize:
+
+Java 21
+→ Virtual Threads ⭐⭐⭐⭐⭐
+
+Java 25
+→ Scoped Values ⭐⭐⭐⭐
+→ Structured Concurrency ⭐⭐⭐⭐
+
+Java 27
+→ Primitive Types in Patterns ⭐⭐⭐
+→ Compact Object Headers ⭐⭐⭐
+→ G1 changes ⭐⭐⭐
+→ Post-Quantum TLS ⭐⭐
+
+Don't spend too much time memorizing Java 27 preview/incubator features—the LTS versions 17, 21 and 25 are more important for enterprise interviews.

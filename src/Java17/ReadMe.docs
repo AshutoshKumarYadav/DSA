@@ -1,0 +1,242 @@
+Java 17 Features — Interview Focus ⭐⭐⭐
+
+Java 17 is an LTS (Long-Term Support) release and is very important for modern Spring Boot interviews.
+
+1. Sealed Classes ⭐⭐⭐
+
+Allows you to control which classes can extend a class.
+
+public sealed class Vehicle
+        permits Car, Bike {
+}
+public final class Car extends Vehicle {
+}
+
+public final class Bike extends Vehicle {
+}
+
+Only Car and Bike can extend Vehicle.
+
+Easy trick:
+
+Sealed = restrict inheritance
+
+2. Pattern Matching for instanceof ⭐⭐⭐
+
+Before Java 17:
+
+if (obj instanceof String) {
+    String s = (String) obj;
+    System.out.println(s.length());
+}
+
+Java 17:
+
+if (obj instanceof String s) {
+    System.out.println(s.length());
+}
+
+Java automatically performs the casting.
+
+Interview phrase:
+
+Pattern matching for instanceof combines type checking and casting.
+
+3. Switch Expression ⭐⭐⭐
+
+Actually introduced as a preview earlier and became a standard feature in Java 14, but you'll commonly use it with Java 17.
+
+Traditional:
+
+String result;
+
+switch (day) {
+    case 1:
+        result = "Monday";
+        break;
+    case 2:
+        result = "Tuesday";
+        break;
+    default:
+        result = "Invalid";
+}
+
+Modern:
+
+String result = switch (day) {
+    case 1 -> "Monday";
+    case 2 -> "Tuesday";
+    default -> "Invalid";
+};
+
+You can also use yield for multiple statements:
+
+String result = switch (day) {
+    case 1 -> "Monday";
+
+    case 2 -> {
+        System.out.println("Tuesday");
+        yield "Tuesday";
+    }
+
+    default -> "Invalid";
+};
+4. Text Blocks ⭐⭐
+
+Introduced as a standard feature in Java 15.
+
+Useful for multiline strings, JSON, SQL, HTML, etc.
+
+Instead of:
+
+String json = "{\n" +
+              "  \"name\": \"Ashutosh\",\n" +
+              "  \"age\": 36\n" +
+              "}";
+
+You can write:
+
+String json = """
+        {
+          "name": "Ashutosh",
+          "age": 36
+        }
+        """;
+
+Much cleaner.
+
+5. Records ⭐⭐⭐
+
+Records became a standard feature in Java 16.
+
+They are useful for creating simple data carrier classes.
+
+Traditional:
+
+public class Employee {
+
+    private final int id;
+    private final String name;
+
+    public Employee(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+Using Record:
+
+public record Employee(int id, String name) {
+}
+
+Java automatically provides:
+
+constructor
+accessor methods
+equals()
+hashCode()
+toString()
+
+Usage:
+
+Employee e = new Employee(101, "Ashutosh");
+
+System.out.println(e.id());
+System.out.println(e.name());
+
+Notice:
+
+e.id()
+
+not:
+
+e.getId()
+
+Interview trick:
+
+Record = immutable data carrier
+
+6. Strong Encapsulation of JDK Internals
+
+Java 17 strongly encapsulated internal JDK APIs.
+
+For example, applications should avoid relying on internal packages such as:
+
+sun.*
+com.sun.*
+
+This improves maintainability and security.
+
+7. Random Number Generator Enhancements
+
+Java 17 introduced a new API for random number generators.
+
+For example:
+
+RandomGenerator generator =
+        RandomGenerator.getDefault();
+
+System.out.println(generator.nextInt(100));
+
+It provides a more flexible way to work with different random number generator algorithms.
+
+8. Enhanced Pseudo-Random Number Generators
+
+Java 17 provides interfaces and implementations that allow applications to choose different random algorithms rather than relying only on java.util.Random.
+
+🔥 Most Important Java 17 Features
+
+For your Java + Spring Boot interviews, prioritize:
+
+Feature	Importance
+Sealed Classes	⭐⭐⭐
+Pattern Matching instanceof	⭐⭐⭐
+Records	⭐⭐⭐
+Switch Expressions	⭐⭐⭐
+Text Blocks	⭐⭐
+Strong Encapsulation	⭐⭐
+Enhanced Random API	⭐
+🧠 Easy memory trick
+
+Think:
+
+Java 17 = Record + Sealed + Pattern + Switch
+
+Java 17
+   │
+   ├── Record
+   │      ↓
+   │   Data carrier
+   │
+   ├── Sealed Class
+   │      ↓
+   │   Restrict inheritance
+   │
+   ├── Pattern Matching
+   │      ↓
+   │   instanceof + casting
+   │
+   └── Switch Expression
+          ↓
+       Cleaner switch
+One very common interview question
+
+Q: Which are LTS versions?
+
+Common modern LTS versions:
+
+Java 8
+Java 11
+Java 17
+Java 21
+Java 25
+
+And since you're preparing around Java 17/21, the next important topic is the Java 21 features, especially Virtual Threads, Pattern Matching for switch, and Record Patterns.
